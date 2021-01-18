@@ -3,8 +3,6 @@ import bodyParser from 'body-parser';
 
 import dotenv from 'dotenv';
 
-import hiragana from './db/hiragana.json';
-
 dotenv.config();
 
 const app = express();
