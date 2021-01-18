@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 
 import { Client } from 'pg';
 
-dotenv.config({path: "../../.env"});
+dotenv.config({path: "./../.env"});
 
 const client = new Client();
 client.connect();

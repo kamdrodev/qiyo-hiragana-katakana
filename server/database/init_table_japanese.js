@@ -4,7 +4,7 @@ import { Client } from 'pg';
 
 import listOfHiraganaCharacters from './hiragana.json';
 
-dotenv.config({path: "../../.env"});
+dotenv.config({path: "./../.env"});
 
 const client = new Client();
 client.connect();
