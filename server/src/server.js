@@ -3,6 +3,9 @@ import bodyParser from 'body-parser';
 
 import dotenv from 'dotenv';
 
+import hiraganaRoutes from './routes/hiragana.js';
+import katakanaRoutes from './routes/katakana.js';
+
 dotenv.config();
 
 const app = express();
@@ -10,15 +13,14 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-// app.get("/hello", (req, res) => {
-//   return res.json({message: "Hello World"});
-// });
+app.use('/api', hiraganaRoutes);
+app.use('/api', katakanaRoutes);
 
 app.use((err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
-
+  console.log(err);
   err.message = err.message || 'Error';
   err.status = err.status || 400;
 
@@ -27,9 +29,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-// const port = process.env.PORT || 8000;i
+const port = process.env.PORT || 8000;
 
-// app.listen(port, () => {
-//   console.log(`Server is running on port: ${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Server is running on port: ${port}`);
+});
 
