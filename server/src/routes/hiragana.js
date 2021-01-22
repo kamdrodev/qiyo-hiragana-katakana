@@ -19,4 +19,14 @@ router.get(
   hiraganaControllers.getHiraganaCharacterById
 )
 
+router.put(
+  '/hiragana/:id/statistics/views',
+  hiraganaControllers.updateHiraganaStatisticsViews
+)
+
+router.put(
+  '/hiragana/:id/statistics/answers',
+  hiraganaControllers.updateHiraganaStatisticsAnswers
+)
+
 export default router;

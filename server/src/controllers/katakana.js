@@ -49,9 +49,64 @@ const getKatakanaCharacterById = async (req, res, next) => {
     client.end();
   }
 }
+
+const updateKatakanaStatisticsViews = async (req, res, next) => {
+  
+  const client = new Client();
+
+  try {
+    client.connect();
+    const updateKatakanaStatisticsViewsQuery = `UPDATE katakana set views = views + 1 WHERE id = $1;`;
+    const { rows } = await client.query(updateKatakanaStatisticsViewsQuery, [req.params.id]);
+
+    return res.json({'message': 'Statistics have been updated'});
+  } catch (e) {
+    const customError = new Error('Something has gone wrong');
+    customError.status = 400;
+    return next(customError);
+  } finally {
+    client.end();
+  }
+}
+
+const updateKatakanaStatisticsAnswers = async (req, res, next) => {
+  
+  const client = new Client();
+
+  try {
+    if (req.body.answerStatus === 'correct') {
+      client.connect();
+      const updateKatakanaStatisticsCorrectAnswersQuery = `UPDATE katakana set correct_answers = correct_answers + 1 WHERE id = $1;`;
+      const { rows } = await client.query(updateKatakanaStatisticsCorrectAnswersQuery, [req.params.id]);
+
+      return res.json({'message': 'Statistics have been updated'});
+    } else if (req.body.answerStatus === 'incorrect') {
+      client.connect();
+      const updateKatakanaStatisticsIncorrectAnswersQuery = `UPDATE katakana set incorrect_answers = incorrect_answers + 1 WHERE id = $1;`;
+      const { rows } = await client.query(updateKatakanaStatisticsIncorrectAnswersQuery, [req.params.id]);
+
+      return res.json({'message': 'Statistics have been updated'});
+    } else {
+      return res.json({'message': 'Something has gone wrong'});
+    }
+   
+  } catch (e) {
+    console.log(e);
+    const customError = new Error('Something has gone wrong');
+    customError.status = 400;
+    return next(customError);
+  } finally {
+    client.end();
+  }
+
+}
+
+
 const katakana = {
   getAllKatakanaCharacters,
-  getKatakanaCharacterById
+  getKatakanaCharacterById,
+  updateKatakanaStatisticsViews,
+  updateKatakanaStatisticsAnswers
 }
 
 export default katakana;

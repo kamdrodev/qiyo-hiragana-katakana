@@ -21,10 +21,10 @@ const getAllHiraganaCharacters = async (req, res, next) => {
   }
 }
 
-const getHiraganaCharacterById = async (req, res, next) => {
+const getHiraganaCharacterById = async (req, res, next) => {  
 
   const client = new Client();
-
+  
   try {
     const validationErrors = validationResult(req);
     if (!validationErrors.isEmpty()) {
@@ -41,7 +41,6 @@ const getHiraganaCharacterById = async (req, res, next) => {
     
     return res.json({'hiraganaCharacter': rows});
   } catch(e) {
-    console.log(e);
     const customError = new Error('Something has gone wrong');
     customError.status = 400;
     return next(customError);
@@ -50,9 +49,62 @@ const getHiraganaCharacterById = async (req, res, next) => {
   }
 }
 
+const updateHiraganaStatisticsViews = async (req, res, next) => {
+  
+  const client = new Client();
+
+  try {
+    client.connect();
+    const updateHiraganaStatisticsViewsQuery = `UPDATE hiragana set views = views + 1 WHERE id = $1;`;
+    const { rows } = await client.query(updateHiraganaStatisticsViewsQuery, [req.params.id]);
+
+    return res.json({'message': 'Statistics have been updated'});
+  } catch (e) {
+    const customError = new Error('Something has gone wrong');
+    customError.status = 400;
+    return next(customError);
+  } finally {
+    client.end();
+  }
+}
+
+const updateHiraganaStatisticsAnswers = async (req, res, next) => {
+  
+  const client = new Client();
+
+  try {
+    if (req.body.answerStatus === 'correct') {
+      client.connect();
+      const updateHiraganaStatisticsCorrectAnswersQuery = `UPDATE hiragana set correct_answers = correct_answers + 1 WHERE id = $1;`;
+      const { rows } = await client.query(updateHiraganaStatisticsCorrectAnswersQuery, [req.params.id]);
+
+      return res.json({'message': 'Statistics have been updated'});
+    } else if (req.body.answerStatus === 'incorrect') {
+      client.connect();
+      const updateHiraganaStatisticsIncorrectAnswersQuery = `UPDATE hiragana set incorrect_answers = incorrect_answers + 1 WHERE id = $1;`;
+      const { rows } = await client.query(updateHiraganaStatisticsIncorrectAnswersQuery, [req.params.id]);
+
+      return res.json({'message': 'Statistics have been updated'});
+    } else {
+      return res.json({'message': 'Something has gone wrong'});
+    }
+   
+  } catch (e) {
+    console.log(e);
+    const customError = new Error('Something has gone wrong');
+    customError.status = 400;
+    return next(customError);
+  } finally {
+    client.end();
+  }
+
+}
+
 const hiragana = {
   getAllHiraganaCharacters,
-  getHiraganaCharacterById
+  getHiraganaCharacterById,
+  updateHiraganaStatisticsViews,
+  updateHiraganaStatisticsAnswers
 }
 
 export default hiragana;

@@ -19,4 +19,14 @@ router.get(
   katakanaControllers.getKatakanaCharacterById
 )
 
+router.put(
+  '/katakana/:id/statistics/views',
+  katakanaControllers.updateKatakanaStatisticsViews
+)
+
+router.put(
+  '/katakana/:id/statistics/answers',
+  katakanaControllers.updateKatakanaStatisticsAnswers
+)
+
 export default router;
