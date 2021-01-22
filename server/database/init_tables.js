@@ -16,9 +16,9 @@ const query_table_hiragana = `
     hiragana varchar,
     romaji varchar,
     created_at timestamp NOT NULL DEFAULT NOW(),
-    number_of_views INT DEFAULT 0,
-    number_of_correct_answers INT DEFAULT 0,
-    number_of_incorrect_answers INT DEFAULT 0
+    views INT DEFAULT 0,
+    correct_answers INT DEFAULT 0,
+    incorrect_answers INT DEFAULT 0
   );
 `;
 
@@ -28,9 +28,9 @@ const query_table_katakana = `
     katakana varchar,
     romaji varchar,
     created_at timestamp NOT NULL DEFAULT NOW(),
-    number_of_views INT DEFAULT 0,
-    number_of_correct_answers INT DEFAULT 0,
-    number_of_incorrect_answers INT DEFAULT 0
+    views INT DEFAULT 0,
+    correct_answers INT DEFAULT 0,
+    incorrect_answers INT DEFAULT 0
   );
 `;
 
