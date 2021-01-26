@@ -11,7 +11,7 @@ const getAllKatakanaCharacters = async (req, res, next) => {
     const getAllKatakanaCharactersQuery = `SELECT * FROM katakana;`;
     const { rows } = await client.query(getAllKatakanaCharactersQuery);
     
-    return res.json({'listOfKatakanaCharacters': rows});
+    return res.json({ message: 'List has been fetched', listOfKatakanaCharacters: rows });
   } catch(e) { 
     const customError = new Error('Something has gone wrong');
     customError.status = 400;
@@ -39,7 +39,7 @@ const getKatakanaCharacterById = async (req, res, next) => {
     const { rows } = await client.query(getKatakanaCharacterByIdQuery, [req.params.id]);
     client.end();    
     
-    return res.json({'katakanaCharacter': rows});
+    return res.json({ message: 'Katakana character has been fetched', katakanaCharacter: rows});
   } catch(e) {
     console.log(e);
     const customError = new Error('Something has gone wrong');
@@ -59,7 +59,7 @@ const updateKatakanaStatisticsViews = async (req, res, next) => {
     const updateKatakanaStatisticsViewsQuery = `UPDATE katakana set views = views + 1 WHERE id = $1;`;
     const { rows } = await client.query(updateKatakanaStatisticsViewsQuery, [req.params.id]);
 
-    return res.json({'message': 'Statistics have been updated'});
+    return res.json({ 'message': 'Statistics have been updated' });
   } catch (e) {
     const customError = new Error('Something has gone wrong');
     customError.status = 400;
@@ -79,15 +79,15 @@ const updateKatakanaStatisticsAnswers = async (req, res, next) => {
       const updateKatakanaStatisticsCorrectAnswersQuery = `UPDATE katakana set correct_answers = correct_answers + 1 WHERE id = $1;`;
       const { rows } = await client.query(updateKatakanaStatisticsCorrectAnswersQuery, [req.params.id]);
 
-      return res.json({'message': 'Statistics have been updated'});
+      return res.json({ 'message': 'Statistics have been updated' });
     } else if (req.body.answerStatus === 'incorrect') {
       client.connect();
       const updateKatakanaStatisticsIncorrectAnswersQuery = `UPDATE katakana set incorrect_answers = incorrect_answers + 1 WHERE id = $1;`;
       const { rows } = await client.query(updateKatakanaStatisticsIncorrectAnswersQuery, [req.params.id]);
 
-      return res.json({'message': 'Statistics have been updated'});
+      return res.json({ 'message': 'Statistics have been updated '});
     } else {
-      return res.json({'message': 'Something has gone wrong'});
+      return res.json({ 'message': 'Something has gone wrong '});
     }
    
   } catch (e) {
@@ -100,7 +100,6 @@ const updateKatakanaStatisticsAnswers = async (req, res, next) => {
   }
 
 }
-
 
 const katakana = {
   getAllKatakanaCharacters,
