@@ -7,7 +7,20 @@ const routes = [
       { path: '', component: () => import('pages/Index.vue') }
     ]
   },
-
+  {
+    path: '/hiragana',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Hiragana.vue') }
+    ]
+  },
+  {
+    path: '/katakana',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Katakana.vue') }
+    ]
+  },
   // Always leave this as last one,
   // but you can also remove it
   {
