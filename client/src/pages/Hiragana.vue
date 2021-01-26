@@ -5,7 +5,27 @@
 </template>
 
 <script>
+
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
-  name: 'PageHiragana'
+  name: 'PageHiragana',
+  async created () {
+    try {
+      const getListOfHiraganaCharacters = await this.getListOfHiraganaCharactersVuex()
+      return this.$q.notify({ message: getListOfHiraganaCharacters.message, color: 'positive' })
+    } catch (e) {
+      console.log(e)
+      return this.$q.notify({ message: e.message, color: 'negative' })
+    }
+  },
+  methods: {
+    ...mapActions('hiragana', {
+      getListOfHiraganaCharactersVuex: 'getListOfHiraganaCharacters'
+    })
+  },
+  computed: {
+    ...mapGetters('hiragana', ['listOfHiraganaCharacters'])
+  }
 }
 </script>

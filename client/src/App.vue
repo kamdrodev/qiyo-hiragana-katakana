@@ -5,6 +5,11 @@
 </template>
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+    this.$q.notify.setDefaults({
+      position: 'top-right'
+    })
+  }
 }
 </script>
