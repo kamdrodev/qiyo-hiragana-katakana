@@ -13,3 +13,7 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+  body
+</style>
