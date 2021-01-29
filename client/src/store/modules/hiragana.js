@@ -19,9 +19,7 @@ const actions = {
     try {
       const getListOfHiraganaCharactersRequest = await axios.get('hiragana')
 
-      commit('setListOfHiraganaCharacters', getListOfHiraganaCharactersRequest.data.hiragana)
-      console.log('Check')
-      console.log(getListOfHiraganaCharactersRequest.data)
+      commit('setListOfHiraganaCharacters', getListOfHiraganaCharactersRequest.data.listOfHiraganaCharacters)
       return {
         message: getListOfHiraganaCharactersRequest.data.message
       }

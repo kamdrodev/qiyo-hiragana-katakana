@@ -19,9 +19,7 @@ const actions = {
     try {
       const getListOfKatakanaCharactersRequest = await axios.get('katakana')
 
-      commit('setListOfKatakanaCharacters', getListOfKatakanaCharactersRequest.data.katakana)
-      console.log('Check')
-      console.log(getListOfKatakanaCharactersRequest.data)
+      commit('setListOfKatakanaCharacters', getListOfKatakanaCharactersRequest.data.listOfKatakanaCharacters)
       return {
         message: getListOfKatakanaCharactersRequest.data.message
       }
