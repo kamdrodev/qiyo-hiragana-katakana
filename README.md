@@ -1,10 +1,11 @@
 # Qiyo
 
-## If you want to learn hiragana / katakana characters this is app is definetely for you.
+## If you want to learn hiragana / katakana characters this is app is definitely for you.
 
 ## Screenshots
 
-soon...
+![qiyo-dashboard](./screenshots/qiyo-dashboard.png)
+![qiyo-hiragana](./screenshots/qiyo-hiragana.png)
 
 ## Client
 
