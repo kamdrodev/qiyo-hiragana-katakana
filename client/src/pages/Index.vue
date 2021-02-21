@@ -4,12 +4,9 @@
       <div class="col-sm-12 col-md-6 flex flex-center">
         <q-card class="my-card no-shadow">
           <q-tabs v-model="tab" class="text-black center no-shadow">
-            <q-tab label="Hiragana" name="tabHiragana" class="no-shadow"/>
-            <q-tab label="Katakana" name="tabKatakana" />
+            <q-tab label="Hiragana" name="tabHiragana" class="tab text-bold"/>
+            <q-tab label="Katakana" name="tabKatakana" class="text-bold"/>
           </q-tabs>
-          <!-- {{ hiragana }} -->
-          <!-- {{ this.$store.getters['hiragana/listOfHiraganaCharacters'] }} -->
-
           <q-tab-panels v-model="tab" animated class="flex flex-center no-shadow">
             <q-tab-panel name="tabHiragana" class="no-shadow">
               <q-carousel
@@ -58,8 +55,8 @@
             </q-tab-panel>
           </q-tab-panels>
           <q-card-actions align="right">
-            <q-btn flat round color="green" icon="view_module" @click="showAllCharacters" />
-            <q-btn flat round color="red" icon="school" @click="startTest" />
+            <q-btn flat round color="black" icon="view_module" @click="showAllCharacters" />
+            <q-btn flat round color="black" icon="school" @click="startTest" />
           </q-card-actions>
         </q-card>
     </div>
@@ -104,6 +101,16 @@ export default {
       getListOfKatakanaCharactersVuex: 'getListOfKatakanaCharacters'
     }),
     showAllCharacters () {
+      try {
+        if (this.tab === 'tabHiragana') {
+          this.$router.push({ path: '/hiragana' })
+        } else if (this.tab === 'tabKatakana') {
+          this.$router.push({ path: '/katakana' })
+        } else {
+          this.$router.push({ path: '/' })
+        }
+      } catch (e) {
+      }
     },
     startTest () {
     }
@@ -115,16 +122,20 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
   .my-card
     min-width: 100%
   .red
     background-color: red !important
+  .q-tab__label
+    font-weight: bold !important
   .slider
     &.hiragana
       .character
         &.hiragana
           font-size: 90px
+          font-weight: bold
         &.romaji
           font-size: 50px
+          font-weight: bold
 </style>
